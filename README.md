@@ -186,6 +186,10 @@ $github_copier -b ~/Desktop/projects -u littlebee -l CoffeeScript -c
 
 - Replace system call with the ruby library like [grit](https://github.com/mojombo/grit) or something similar
 
+### Related Projects
+
+- [github_cloner](https://github.com/nashby/github_cloner) by Vasiliy Ermolovich
+
 ### Contributing
 
 1. Fork it
