@@ -139,12 +139,10 @@ List of all repositories by littlebee
 Dry-run only, no action taken!
 ```
 
-- List and clone repositories for a given user
+- List and clone repositories for a given user (e.g. `--clone` option used)
 
 ```
-# run option (list only)
-$github_copier -b ~/Desktop/projects -u littlebee -l CoffeeScript -c
- github_copier git:(master) ✗ github_copier -b ~/Desktop/projects -u littlebee -l CoffeeScript -c
+$github_copier git:(master) ✗ github_copier -b ~/Desktop/projects -u littlebee -l CoffeeScript -c
  ------------------------------------------
  List of languages by littlebee
  Makefile
@@ -186,7 +184,6 @@ $github_copier -b ~/Desktop/projects -u littlebee -l CoffeeScript -c
 
 ### TODO
 
-- Make only organization/user mandatory but not both at the same time
 - Replace system call with the ruby library like [grit](https://github.com/mojombo/grit) or something similar
 
 ### Contributing
