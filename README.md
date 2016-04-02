@@ -38,18 +38,21 @@ You should see something like
 Usage: github_copier [options]
 
 Specific options:
-    -b, --base-dir BASE_DIR          Output directory where the repository will be cloned to
-    -u, --user USER                  The github USER that will be cloned from
-    -o, --org [ORG]                  The Github's organization name to be used if specified
-                                     (where ORG is the organization that the user belongs to)
-    -t, --oauth-token [OAUTH_TOKEN]  The Github's oauth_token for authentication (required to list/clone private repositories)
-                                     (where OAUTH_TOKEN is from the user's Github setting)
-    -l, --language [LANG]            Clone only project of type LANG
-                                     (where LANG is main language as shown on Github)
+    -b, --base-dir BASE_DIR          where BASE_DIR is the directory where the repositories will be cloned to (mandatory)
+                                     If not specified, current directory will be used
+    -u, --user USER                  The Github USER that will be cloned from (mandatory)
+    -o, --org [ORG]                  The Github's organization name to be used if specified (optional)
+                                     where ORG is the organization that the user belongs to
+    -t, --oauth-token [OAUTH_TOKEN]  The Github's oauth_token for authentication (optional - only required to list/clone private repositories)
+                                     where OAUTH_TOKEN is from the user's Github setting
+    -l, --language [LANG]            Clone only project of type LANG (optional)
+                                     where LANG is main language as shown on Github
     -a, --[no-]all-repos             All repository only (optional)
-                                     (default to original/non-fork repositories only)
+                                     default to original/non-forked repositories only
+    -g, --[no-]group-by-user         Group the output by {BASE_DIR}/{USER}/{LANG}
+                                     default to {BASE_DIR}/{LANG}/{USER}
     -c, --[no-]clone                 Clone the repositories to the path specified (optional)
-                                     (default to --no-clone e.g. dry-run only)
+                                     default to --no-clone e.g. dry-run only
 
 Common options:
     -h, --help                       Show this message
@@ -108,8 +111,7 @@ $github_copier --user awesome_user \
 - List repositories by a given user (dry-run)
 
 ```
-# Dry run option (list only)
-$github_copier -b ~/Desktop/projects -u littlebee -l CoffeeScript
+$github_copier -b ~/Desktop/projects -u littlebee -l Ruby
 ------------------------------------------
 List of languages by littlebee
 Makefile
@@ -136,55 +138,48 @@ List of all repositories by littlebee
 14/15: littlebee/JavaScript/selectable-collection
 15/15: littlebee/Arduino/solar-sunflower
 ------------------------------------------
-Dry-run only, no action taken!
+FYI: dry-run only, no action taken!!
+Process 1 of 1 : git clone git@github.com:littlebee/got.git /Users/bchoomnuan/Desktop/projects/Ruby/littlebee/got
 ```
 
 - List and clone repositories for a given user (e.g. `--clone` option used)
 
 ```
-$github_copier -b ~/Desktop/projects -u littlebee -l CoffeeScript -c
- ------------------------------------------
- List of languages by littlebee
- Makefile
- CoffeeScript
- Ruby
- JavaScript
- Arduino
- ------------------------------------------
- ------------------------------------------
- List of all repositories by littlebee
- 1/15: littlebee/Makefile/arduino-mk
- 2/15: littlebee/CoffeeScript/bumble-build
- 3/15: littlebee/CoffeeScript/bumble-docs
- 4/15: littlebee/CoffeeScript/bumble-strings
- 5/15: littlebee/CoffeeScript/bumble-test
- 6/15: littlebee/CoffeeScript/bumble-util
- 7/15: littlebee/CoffeeScript/git-log-utils
- 8/15: littlebee/CoffeeScript/git-status-utils
- 9/15: littlebee/CoffeeScript/git-time-machine
- 10/15: littlebee/CoffeeScript/notjs
- 11/15: littlebee/CoffeeScript/publish
- 12/15: littlebee/CoffeeScript/react-focus-trap-amd
- 13/15: littlebee/Ruby/got
- 14/15: littlebee/JavaScript/selectable-collection
- 15/15: littlebee/Arduino/solar-sunflower
- ------------------------------------------
- Process 1 of 11 => git clone git@github.com:littlebee/bumble-build.git /Users/bchoomnuan/Desktop/projects/littlebee/CoffeeScript/bumble-build
- Process 2 of 11 => git clone git@github.com:littlebee/bumble-docs.git /Users/bchoomnuan/Desktop/projects/littlebee/CoffeeScript/bumble-docs
- Process 3 of 11 => git clone git@github.com:littlebee/bumble-strings.git /Users/bchoomnuan/Desktop/projects/littlebee/CoffeeScript/bumble-strings
- Process 4 of 11 => git clone git@github.com:littlebee/bumble-test.git /Users/bchoomnuan/Desktop/projects/littlebee/CoffeeScript/bumble-test
- Process 5 of 11 => git clone git@github.com:littlebee/bumble-util.git /Users/bchoomnuan/Desktop/projects/littlebee/CoffeeScript/bumble-util
- Process 6 of 11 => git clone git@github.com:littlebee/git-log-utils.git /Users/bchoomnuan/Desktop/projects/littlebee/CoffeeScript/git-log-utils
- Process 7 of 11 => git clone git@github.com:littlebee/git-status-utils.git /Users/bchoomnuan/Desktop/projects/littlebee/CoffeeScript/git-status-utils
- Process 8 of 11 => git clone git@github.com:littlebee/git-time-machine.git /Users/bchoomnuan/Desktop/projects/littlebee/CoffeeScript/git-time-machine
- Process 9 of 11 => git clone git@github.com:littlebee/notjs.git /Users/bchoomnuan/Desktop/projects/littlebee/CoffeeScript/notjs
- Process 10 of 11 => git clone git@github.com:littlebee/publish.git /Users/bchoomnuan/Desktop/projects/littlebee/CoffeeScript/publish
- Process 11 of 11 => git clone git@github.com:littlebee/react-focus-trap-amd.git /Users/bchoomnuan/Desktop/projects/littlebee/CoffeeScript/react-focus-trap-amd
+$github_copier -b ~/Desktop/projects -u littlebee -l Ruby -c
+------------------------------------------
+List of languages by littlebee
+Makefile
+CoffeeScript
+Ruby
+JavaScript
+Arduino
+------------------------------------------
+------------------------------------------
+List of all repositories by littlebee
+1/15: littlebee/Makefile/arduino-mk
+2/15: littlebee/CoffeeScript/bumble-build
+3/15: littlebee/CoffeeScript/bumble-docs
+4/15: littlebee/CoffeeScript/bumble-strings
+5/15: littlebee/CoffeeScript/bumble-test
+6/15: littlebee/CoffeeScript/bumble-util
+7/15: littlebee/CoffeeScript/git-log-utils
+8/15: littlebee/CoffeeScript/git-status-utils
+9/15: littlebee/CoffeeScript/git-time-machine
+10/15: littlebee/CoffeeScript/notjs
+11/15: littlebee/CoffeeScript/publish
+12/15: littlebee/CoffeeScript/react-focus-trap-amd
+13/15: littlebee/Ruby/got
+14/15: littlebee/JavaScript/selectable-collection
+15/15: littlebee/Arduino/solar-sunflower
+------------------------------------------
+Process 1 of 1 : git clone git@github.com:littlebee/got.git /Users/bchoomnuan/Desktop/projects/Ruby/littlebee/got
 ```
 
 ### TODO
 
 - Replace system call with the ruby library like [grit](https://github.com/mojombo/grit) or something similar
+- Allow the `https` when performing the clone
+- Implement the `FilenameCleaner.sanitize()` locally
 
 ### Related Projects
 

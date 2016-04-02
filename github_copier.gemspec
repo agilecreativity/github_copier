@@ -8,7 +8,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Burin Choomnuan']
   spec.email         = ['agilecreativity@gmail.com']
   spec.summary       = %q{Clone/list Github repository for a given user/organization include private/public in one go}
-  spec.description   = %q{Clone/list Github repository for any user/organization including private repositories}
+  spec.description   = %q(
+    Clone/list multiple Github repositories for a given user/organization including private repos easily.
+    e.g.$github_copier --base-dir ~/projects --user awesome_dev --language "Emacs Lisp" --clone
+    ).gsub(/^\s+/, " ")
   spec.homepage      = 'https://github.com/agilecreativity/github_copier'
   spec.required_ruby_version = ">= 2.0.0"
   spec.license       = 'MIT'
@@ -25,9 +28,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'github_api', '~> 0.13'
-  spec.add_runtime_dependency 'awesome_print', '~> 1.6'
   spec.add_runtime_dependency 'filename_cleaner', '~> 0.4'
 
+  spec.add_development_dependency 'awesome_print', '~> 1.6'
   spec.add_development_dependency 'bundler', '~> 1.10'
   spec.add_development_dependency 'gem-ctags', '~> 1.0'
   spec.add_development_dependency 'guard', '~> 2.12'

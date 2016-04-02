@@ -21,6 +21,7 @@ module GithubCopier
 
           # require this for only with org and with private repos
           args.merge!(oauth_token: args[:oauth_token]) if args[:oauth_token]
+          ##puts "FYI: your options #{args}"
 
           # Only required if we use oauth_token which allow use to list private repositories
           github = Github.new(args)
@@ -51,15 +52,14 @@ module GithubCopier
 
       # Clone list of repos of the following forms
       #
-      # @params [Array<string>] projects list of project of the form '{org|user}/{language}/{repo_name}'
-      #         [ "magnars/clojure/project1", "magnars/clojure/tools.macro", ...]
-      # @param [String] base_dir the base directory to save the clone result
-      #         default to current directory
-      # The result will be saved to '/path/to/base_dir/{org_name}/{language}/{repo_name}'
-      def clone_all(projects, base_dir = ".")
-        base_path = File.expand_path(base_dir)
+      def clone_all(projects, args = {})
+        base_path = File.expand_path(args[:base_dir])
 
-        FileUtils.mkdir_p(base_path)
+        if args[:clone_repos]
+          FileUtils.mkdir_p(base_path)
+        else
+          puts "FYI: dry-run only, no action taken!!" unless args[:clone_repos]
+        end
 
         projects.each_with_index do |project, i|
           org_name, language, repo_name = project.split(File::SEPARATOR)
@@ -67,10 +67,15 @@ module GithubCopier
           # Note: need to cleanup the language like 'Emacs Lisp' to 'Emacs_Lisp' or 'emacs_lisp'
           language = FilenameCleaner.sanitize(language, '_', false)
 
-          output_path = [base_path, org_name, language, repo_name].join(File::SEPARATOR)
-          puts "Process #{i+1} of #{projects.size} => git clone git@github.com:#{[org_name, repo_name].join(File::SEPARATOR)}.git #{output_path}"
-          # TODO: may be allow `https` as well as `git`?
-          output = system("git clone git@github.com:#{[org_name, repo_name].join(File::SEPARATOR)}.git #{output_path} 2> /dev/null")
+          if args[:group_by_user]
+            output_path = [base_path, org_name, language, repo_name].join(File::SEPARATOR)
+          else
+            output_path = [base_path, language, org_name, repo_name].join(File::SEPARATOR)
+          end
+          puts "Process #{i+1} of #{projects.size} : git clone git@github.com:#{[org_name, repo_name].join(File::SEPARATOR)}.git #{output_path}"
+          if args[:clone_repos]
+            system("git clone git@github.com:#{[org_name, repo_name].join(File::SEPARATOR)}.git #{output_path} 2> /dev/null")
+          end
         end
       end
 
