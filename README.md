@@ -179,7 +179,6 @@ Process 1 of 1 : git clone git@github.com:littlebee/got.git /Users/bchoomnuan/De
 
 - Replace system call with the ruby library like [grit](https://github.com/mojombo/grit) or something similar
 - Allow the `https` when performing the clone
-- Implement the `FilenameCleaner.sanitize()` locally
 
 ### Related Projects
 

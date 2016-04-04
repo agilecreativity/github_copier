@@ -28,7 +28,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'github_api', '~> 0.13'
-  spec.add_runtime_dependency 'filename_cleaner', '~> 0.4'
 
   spec.add_development_dependency 'awesome_print', '~> 1.6'
   spec.add_development_dependency 'bundler', '~> 1.10'
