@@ -1,8 +1,8 @@
 ### Changelogs
 
-#### 0.1.0
+#### 0.2.1
 
-- Initial release
+- Remove the need from `filename_cleaner` and use it locally
 
 #### 0.2.0
 
@@ -11,6 +11,6 @@
 - Improve the gemspec to add more context for the user
 - Add some example to default option when the user type no argument
 
-#### 0.2.1
+#### 0.1.0
 
-- Remove the need from `filename_cleaner` and use it locally
+- Initial release
