@@ -39,6 +39,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry', '~> 0.10'
   spec.add_development_dependency 'pry-byebug', '~> 3.1' if RUBY_VERSION >= '2.0.0'
   spec.add_development_dependency 'rake', '~> 10.4'
-  spec.add_development_dependency 'rubocop', '~> 0.31'
-  spec.add_development_dependency 'yard', '~> 0.8'
+  spec.add_development_dependency 'rubocop', '~> 0.49.0'
+  spec.add_development_dependency 'yard', '~> 0.9.20'
 end
